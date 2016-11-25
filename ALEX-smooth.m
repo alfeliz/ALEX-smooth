@@ -82,19 +82,12 @@ data = csv2cell(filename); %rading a CSV file like a boss...
 # data(1,:) has all the headers of the CSV file.
 # data(2:end,:) has all the columns (4 are expected in this file)
 
-
-
-
-%~ r_rows =  "%f,%f,%f,%f"; %4 rows to read.
-%~ if feof(file)==0 #Read the file until it finds the EndOfFile character.
-   %~ data = textscan(file, r_rows);
-   %~ data
-%~ endif;
-%~ fclose(file);
-%~ 
 #Transforming the data in numbers:
 t = cell2mat(data(2:end,1)); #Time vector (in µs)
 r = cell2mat(data(2:end,2));  #Radius vector (in mm) (IT DOES NOT WORK WITH EMPTY ELEMENTS IN THE ARRAY!!!!)
+t = sort(t); #Ordering the vectors correctly
+r = sort(r);
+
 
 
 ###
@@ -105,7 +98,7 @@ if(length(t)==length(r))
 	dev = std(r); %Standard deviation. Best for not over smoothing.
 	#Radial data smoothing:
 	%r_smooth = regdatasmooth(t,r, "xhat", trad, "stdev", dev, "relative" ); % "xhat": points for x values; "stdev": value of admited standard deviation;
-	r_smooth = regdatasmooth(t,r, "xhat", trad, "lambda", 0.07 ); % "xhat": points for x values; "lambda": value starting lambda value.
+	r_smooth = regdatasmooth(t,r, "xhat", trad, "lambda", 0.007 ); % "xhat": points for x values; "lambda": value starting lambda value.
 else
 	error("Vectors radial and time are not of the same length")
 endif;
