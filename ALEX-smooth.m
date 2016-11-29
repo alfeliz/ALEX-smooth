@@ -136,7 +136,7 @@ name = horzcat(filename(1:index(filename,".","first")),"-smooth.dat"); %Adding t
 output = fopen(name,"w"); %Opening the file.
 #First line ((Veusz system, acepted as garbage line by QtiPlot):
 fdisp(output,"descriptor `t(µs)`  `r_shadow(mm)`");
-redond = [3 3];
+redond = [4 4];
 rad2 = [trad, r_smooth]; %Puting the vectors in columns.
 display_rounded_matrix(rad2, redond, output); 
 fclose(output); %Closing the file.
